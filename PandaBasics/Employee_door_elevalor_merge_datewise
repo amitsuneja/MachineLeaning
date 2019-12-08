@@ -1,0 +1,57 @@
+# csv files are not stored in git as they contain critical employee data . 
+# "Door_Data_Amit.csv" file contains when employee entered from door
+# "Elevator_Data_Amit.csv" file contains when employee entered from Elevator
+
+# Format of both files :
+# "DATE",1,2,3,4,5,6,7,8,9,10 --->these 1,2,3, are actullly employee IDs
+# 11/sep/1930 , , , ,1,,,0
+
+
+
+"""
+import the libraries
+
+"""
+import pandas as pd
+
+"""
+Create the dataframes by reading csv
+"""
+df_door = pd.read_csv('Door_Data_Amit.csv')
+df_elevator = pd.read_csv('Elevator_Data_Amit.csv')
+
+"""
+concat the panda dataframes
+"""
+df_total = pd.concat([df_door, df_elevator], sort=True)
+
+"""
+save dataframe to file , so that we can see data
+"""
+df_total.to_csv("total.csv", sep=',', encoding='utf-8', index=False)
+
+"""
+fetch the columns , it return the output in numpy array , so convert it into list. Remove the data from the list
+"""
+all_columns = list(df_total.columns.values)
+all_columns.remove('Date')
+
+"""
+Create a aggregate function
+"""
+aggregation_functions = dict()
+for item in all_columns:
+    aggregation_functions[item] = 'sum'
+print(aggregation_functions)
+
+
+"""
+apply the groupby and aggregate function and store output in csv
+"""
+df_total_final = df_total.groupby(df_total['Date']).aggregate(aggregation_functions)
+df_total_final.to_csv("new_csv.csv")
+
+
+
+
+

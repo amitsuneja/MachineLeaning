@@ -1,0 +1,27 @@
+import pandas as pd
+
+
+df = pd.DataFrame([{'id': 1, 'price': 123, 'name': 'anna', 'amount': 1},
+                   {'id': 1, 'price':   7, 'name': 'anna', 'amount': 2},
+                   {'id': 2, 'price':  42, 'name': 'bob', 'amount': 30},
+                   {'id': 3, 'price':   1, 'name': 'charlie', 'amount': 10},
+                   {'id': 3, 'price':   2, 'name': 'david', 'amount': 100}])
+print(df)
+print("_____________________")
+aggregation_functions = {'price': 'sum', 'amount': 'sum', 'name': 'first'}
+df_new = df.groupby(df['id']).aggregate(aggregation_functions)
+print(df_new)
+
+
+#    amount  id     name  price
+# 0       1   1     anna    123
+# 1       2   1     anna      7
+# 2      30   2      bob     42
+# 3      10   3  charlie      1
+# 4     100   3    david      2
+# _____________________
+#     price  amount     name
+# id                        
+# 1     130       3     anna
+# 2      42      30      bob
+# 3       3     110  charlie

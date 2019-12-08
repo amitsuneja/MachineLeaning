@@ -1,0 +1,5 @@
+from simpledbf import Dbf5
+
+df = Dbf5('amit.dbf').to_dataframe()
+
+print(df.head())

@@ -1,0 +1,51 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+
+
+x = pd.Series(data=[1, 3, 9, 11, 12], index=[1, 2, 3, 4, 5])
+print(x)
+print("\n")
+
+x = pd.Series(data=[1, 3, 9, 11, 12])
+print(x)
+print("\n")
+
+x = pd.Series(data=[1, 3, 9, 11, 12], index=['a', 'b', 'c', 'd', 'e'])
+print(x)
+
+print("\n")
+print(x.a)
+print("\n")
+
+
+print(x.iloc[:3])     # Note that, unlike Python, slicing this way includes the endpoints.
+print("\n")
+
+print(x.loc['a':'d'])  # Note that, unlike Python, slicing this way includes the endpoints.
+print("\n")
+
+print(x['a':'d'])   # Note that, unlike Python, slicing this way includes the endpoints.
+print("\n")
+
+x = pd.Series(data=(range(5)), index=[1, 2, 11, 9, 10])
+print(x)
+
+grp = x.groupby(lambda i: i % 2)
+# printing even
+print(grp.get_group(0))
+
+# printing odd
+print(grp.get_group(1))
+print("__________________")
+# max in each group
+print(grp.max())
+#  Note that the operation above returns another Series object with an index corresponding
+#  to the [0,1] elements.
+
+
+
+
+plt.plot(range(10))
+plt.show()    # unnecessary in IPython (discussed later)
+print("\n")
