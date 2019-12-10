@@ -1,6 +1,5 @@
-import numpy as np  # Numeriacal computing
+import numpy as np  # Numerical computing
 import matplotlib.pyplot as plt  # plotting core
-import seaborn as sns  # higher level plotting tools
 
 
 def g(z):
@@ -8,11 +7,11 @@ def g(z):
 
 
 def test_g():
-    x = np.linspace(-10, 10, 100)
-    plt.plot(x, g(x))
+    z = np.linspace(-10, 10, 100)
+    plt.plot(z, g(z))
     plt.grid(True)
-    plt.xlabel("x")
-    plt.ylabel("Sigmoid(X)")
+    plt.xlabel("z")
+    plt.ylabel("Sigmoid(z)")
     plt.annotate('Convex', (-7.5, 0.2), fontsize=18)
     plt.annotate('Concave', (3, 0.8), fontsize=18)
     plt.title("Sigmoid Function g(z) = 1/(1 + exp(-z))", fontsize=12, color="blue")
@@ -34,7 +33,10 @@ def plot_cost_function():
     plt.show()
 
 
+if __name__ == "__main__":
+    test_g()
+    plot_cost_function()
 
 
-test_g()
-plot_cost_function()
+
+

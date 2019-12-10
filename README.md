@@ -2,6 +2,6 @@
 
 https://www.pugetsystems.com/labs/hpc/Machine-Learning-and-Data-Science-Logistic-Regression-Implementation-996/
 
+https://www.stat.cmu.edu/~cshalizi/350/lectures/
 
-"https://github.com/selva86/datasets/raw/master/mpg_ggplot2.csv"
-"https://raw.githubusercontent.com/selva86/datasets/master/mpg_ggplot2.csv"
+http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLearning&doc=exercises/ex4/ex4.html
