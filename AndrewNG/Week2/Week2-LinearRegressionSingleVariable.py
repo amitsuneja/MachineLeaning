@@ -32,9 +32,6 @@ def plot_data(df):
     plt.title("My Company Data")
     plt.legend()
     plt.savefig("Week2-LinearRegOneVariable.png")
-    plt.cla()  # Clear axis
-    plt.clf()  # Clear figure
-    plt.close()  # Close a figure window
     return plt
 
 
@@ -102,23 +99,41 @@ def plot_cost_function(j_list, i):
     return plt
 
 
-if __name__ == "__main__":
-    df = reading_data_file("ex1data1.txt")
+def plot_regression_line(df, x, final_theta):
     plt = plot_data(df)
-    x, y, theta, alpha = fit_data(df)
+    plt.plot(x[:, 1], h(x, final_theta))
+    plt.savefig("Week2-LinearRegOneVariable-final.png")
+
+
+def optional_for_troubleshooting(x, y, theta,alpha):
     hypothesis = h(x, theta)
     print("x.shape = ", x.shape)
     print("theta.shape =", theta.shape)
     print("hypothesis.shape =",  hypothesis.shape)
     cost = j(x, y, theta)
-    print("cost= ", cost)
+    print("Initial cost= ", cost)
     print("cost.shape=", cost.shape)
     deri = first_der_j(x, y, theta, alpha)
     print("deri.shape=", deri.shape)
+
+
+if __name__ == "__main__":
+    df = reading_data_file("ex1data1.txt")
+    plt = plot_data(df)
+    x, y, theta, alpha = fit_data(df)
+    #optional_for_troubleshooting(x, y, theta,alpha)
     j_list, theta_list, hypothesis, i, deri_theta_list = batch_gradient_descent(x, y, theta, alpha)
-    print("theta0=", theta_list[-1][0])
-    print("theta1=", theta_list[-1][1])
     plt = plot_cost_function(j_list, i)
+    final_theta = np.ones((2, 1))
+    final_theta[0][0] = theta_list[-1][0][0]
+    final_theta[1][0] = theta_list[-1][1][0]
+    print("final_theta_values =", final_theta)
+    print("final_cost_value = ", j_list[-1][0][0])
+    plt = plot_regression_line(df , x  , final_theta)
+
+
+
+
 
 
 
