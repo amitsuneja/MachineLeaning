@@ -31,6 +31,10 @@ def plot_data(df):
     plt.ylabel("Profit in $10,000s")
     plt.title("My Company Data")
     plt.legend()
+    plt.savefig("Week2-LinearRegOneVariable.png")
+    plt.cla()  # Clear axis
+    plt.clf()  # Clear figure
+    plt.close()  # Close a figure window
     return plt
 
 
@@ -66,6 +70,7 @@ def batch_gradient_descent(x, y, theta, alpha):
     theta_list = list()  # to append list of all the thetas
     j_list = list()      # to append values of cost
     j_list.append(1e10)  # we append some large value to the cost list
+    deri_theta_list = list()
     i = 0
     run = True
     while run:
@@ -73,31 +78,55 @@ def batch_gradient_descent(x, y, theta, alpha):
         cost = j(x, y, theta)
         j_list.append(cost)
         theta_list.append(theta)
+        deri_theta_list.append(first_der_j(x, y, theta, alpha))
+
         if j_list[i] - j_list[i + 1] < 1e-9:  # checking if the change in cost function is less than 10^(-9)
             run = False
-        print("Iteration number {} have cost = {}".format(i, cost))
+        # print("Iteration number {} have cost = {}".format(i, cost))
         i = i + 1
     j_list.pop(0)
     hypothesis = h(x, theta)
-    return j_list, theta_list, hypothesis
+    return j_list, theta_list, hypothesis, i, deri_theta_list
+
+
+def plot_cost_function(j_list, i):
+    x = [k[0][0] for k in j_list]
+    y = range(i)
+    plt.plot(y, x)
+    plt.ylabel("Cost")
+    plt.xlabel("No of iterations")
+    plt.savefig("Week2-costfunction.png")
+    plt.cla()  # Clear axis
+    plt.clf()  # Clear figure
+    plt.close()  # Close a figure window
+    return plt
 
 
 if __name__ == "__main__":
     df = reading_data_file("ex1data1.txt")
     plt = plot_data(df)
     x, y, theta, alpha = fit_data(df)
-    my_hypothesis = h(x, theta)
+    hypothesis = h(x, theta)
     print("x.shape = ", x.shape)
     print("theta.shape =", theta.shape)
-    print("my_hypothesis.shape =",  my_hypothesis.shape)
+    print("hypothesis.shape =",  hypothesis.shape)
     cost = j(x, y, theta)
     print("cost= ", cost)
     print("cost.shape=", cost.shape)
     deri = first_der_j(x, y, theta, alpha)
     print("deri.shape=", deri.shape)
-    j_list, theta_list, hypothesis = batch_gradient_descent(x, y, theta, alpha)
+    j_list, theta_list, hypothesis, i, deri_theta_list = batch_gradient_descent(x, y, theta, alpha)
     print("theta0=", theta_list[-1][0])
     print("theta1=", theta_list[-1][1])
+    plt = plot_cost_function(j_list, i)
+
+
+
+
+
+
+
+
 
 
 
