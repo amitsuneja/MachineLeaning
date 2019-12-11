@@ -1,19 +1,20 @@
 """
-Linear regression with one variable
 
-DataFile - ex1data1.txt
-m(number of records) = 96 and n(number of features) = 1
+The file ex1data2.txt contains a training set of housing prices in Port-
+land, Oregon. The first column is the size of the house (in square feet), the
+second column is the number of bedrooms, and the third column is the price
+of the house
 
-The first column is the population of a city and the second column is
-the profit of a food truck in that city.
-
-A negative value for profit indicates a loss.
+"perform feature normalizarion "
+-Subtract the mean value of each feature from the dataset.
+-After subtracting the mean, additionally scale (divide) the feature values
+by their respective /standard deviations."
 
 
 
 """
-
-
+# This import registers the 3D projection, but is otherwise unused.
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -21,27 +22,37 @@ import pandas as pd
 
 def reading_data_file(csv_filename):
     df = pd.read_csv(csv_filename, header=None)
-    df.columns = [["population", "profit"]]
+    df.columns = [["size", "bedroom", "price"]]
     return df
 
 
-def plot_data(df):
-    plt.scatter(df["population"], df["profit"], c="red", marker="o", label="profit v/s popultion")
-    plt.xlabel("Population of City in 10,000s")
-    plt.ylabel("Profit in $10,000s")
-    plt.title("My Company Data")
-    plt.legend()
-    plt.savefig("Week2-LinearRegOneVariable.png")
-    return plt
+def normalize(df):
+    mean_dataset = np.mean(df, axis=0)  # we should retain mean and std for predictions so passing it via function
+    std_dataset = np.std(df, axis=0)
+    df = (df - mean_dataset)/std_dataset
+    return df, mean_dataset, std_dataset
 
 
 def fit_data(df):
-    x = df["population"]
-    y = df["profit"]
+    x = df[["size", "bedroom"]]
+    y = df["price"]
     x = np.c_[np.ones(x.shape[0]), x]  # remember this will always return numpy array
-    theta = np.zeros((x.shape[1], 1))  #np.zeros((2, 1))
-    alpha = 0.01
+    theta = np.zeros((x.shape[1], 1))  # np.zeros((3, 1))
+    alpha = 0.3
     return x, y, theta, alpha
+
+
+def plot_data(df):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(df["size"], df["bedroom"], df["price"], c="red", marker="o")
+    ax.set_xlabel('size of house')
+    ax.set_ylabel('No of Bedrooms')
+    ax.set_zlabel('price of house')
+    plt.title("Housing prices in Port-land, Oregon.")
+    plt.savefig("Week3-LinearReg.png")
+    plt.show()
+    return plt
 
 
 def h(x, theta):                      # this is probability/hypotheses
@@ -60,15 +71,6 @@ def first_der_j(x, y, theta, alpha):  # dj/dQ
     hypothesis = h(x, theta)
     error = hypothesis - y
     # return (alpha * (1 / m) * (np.dot(error.T, x))).T
-    """
-    above statement and below statement are doing same job ,why ? check basic of matrix. 
-    x = np.arange(194).reshape(97, 2)
-    error = np.arange(97).reshape(97, 1)
-    print("x.shape=", x.shape)                                     # x= (97, 2)
-    print("error.shape=", error.shape)                             # error= (97, 1)
-    print("np.dot(x.T, error).shape =", np.dot(x.T, error).shape)  # ---> (2,1)
-    print("np.dot(error.T, x).T.shape =",  np.dot(error.T, x).T.shape)  # ---> (2,1)
-    """
     return alpha * (1 / m) * (np.dot(x.T, error))
 
 
@@ -95,7 +97,6 @@ def batch_gradient_descent(x, y, theta, alpha):
     hypothesis = h(x, theta)
     return j_list, theta_list, hypothesis, i, deri_theta_list
 
-
 def plot_cost_function(j_list, i):
     x = [k[0][0] for k in j_list]
     y = range(i)
@@ -107,13 +108,6 @@ def plot_cost_function(j_list, i):
     plt.clf()  # Clear figure
     plt.close()  # Close a figure window
     return plt
-
-
-def plot_regression_line(df, x, final_theta):
-    plt = plot_data(df)
-    plt.plot(x[:, 1], h(x, final_theta))
-    plt.savefig("Week2-LinearRegOneVariable-final.png")
-
 
 def optional_for_troubleshooting(x, y, theta,alpha):
     hypothesis = h(x, theta)
@@ -128,35 +122,19 @@ def optional_for_troubleshooting(x, y, theta,alpha):
 
 
 if __name__ == "__main__":
-    df = reading_data_file("ex1data1.txt")
-    plt = plot_data(df)
+    df = reading_data_file("ex1data2.txt")
+    df, mean_dataset, std_dataset = normalize(df)
     x, y, theta, alpha = fit_data(df)
-    #optional_for_troubleshooting(x, y, theta,alpha)
+    plot_data(df)
+    # optional_for_troubleshooting(x, y, theta,alpha)
     j_list, theta_list, hypothesis, i, deri_theta_list = batch_gradient_descent(x, y, theta, alpha)
     plt = plot_cost_function(j_list, i)
-    final_theta = np.ones((2, 1))
+    final_theta = np.ones((3, 1))
     final_theta[0][0] = theta_list[-1][0][0]
     final_theta[1][0] = theta_list[-1][1][0]
+    final_theta[2][0] = theta_list[-1][2][0]
     print("final_theta_values =", final_theta)
     print("final_cost_value = ", j_list[-1][0][0])
-    plt = plot_regression_line(df , x  , final_theta)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
