@@ -88,12 +88,10 @@ if __name__ == "__main__":
     print("x.shape = ", x.shape)
     print("theta.shape =", theta.shape)
     print("my_hypothesis.shape =",  my_hypothesis.shape)
-    j = j(x, y, theta)
-    print(type(j))
-    print(j.shape)
+    cost1 = j(x, y, theta)
+    print("cost1.shape=", cost1.shape)
     deri = first_der_j(x, y, theta, alpha)
-    print(deri)
-    print(deri.shape)
+    print("deri.shape=", deri.shape)
     j_list, theta_list, hypothesis = batch_gradient_descent(x, y, theta, alpha)
 
 
