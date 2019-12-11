@@ -38,7 +38,7 @@ def fit_data(df):
     x = df["population"]
     y = df["profit"]
     x = np.c_[np.ones(x.shape[0]), x]  # remember this will always return numpy array
-    theta = np.random.rand(x.shape[1], 1)  #np.zeros((2, 1))
+    theta = np.zeros((x.shape[1], 1))  #np.zeros((2, 1))
     alpha = 0.01
     return x, y, theta, alpha
 
@@ -58,7 +58,7 @@ def first_der_j(x, y, theta, alpha):  # dj/dQ
     m = x.shape[0]
     hypothesis = h(x, theta)
     error = hypothesis - y
-    return alpha * (1 / m) * (np.dot(error.T, x))
+    return (alpha * (1 / m) * (np.dot(error.T, x))).T
 
 
 def batch_gradient_descent(x, y, theta, alpha):
@@ -72,8 +72,10 @@ def batch_gradient_descent(x, y, theta, alpha):
         theta = theta - first_der_j(x, y, theta, alpha)
         cost = j(x, y, theta)
         j_list.append(cost)
+        theta_list.append(theta)
         if j_list[i] - j_list[i + 1] < 1e-9:  # checking if the change in cost function is less than 10^(-9)
             run = False
+        print("Iteration number {} have cost = {}".format(i, cost))
         i = i + 1
     j_list.pop(0)
     hypothesis = h(x, theta)
@@ -88,11 +90,17 @@ if __name__ == "__main__":
     print("x.shape = ", x.shape)
     print("theta.shape =", theta.shape)
     print("my_hypothesis.shape =",  my_hypothesis.shape)
-    cost1 = j(x, y, theta)
-    print("cost1.shape=", cost1.shape)
+    cost = j(x, y, theta)
+    print("cost= ", cost)
+    print("cost.shape=", cost.shape)
     deri = first_der_j(x, y, theta, alpha)
     print("deri.shape=", deri.shape)
     j_list, theta_list, hypothesis = batch_gradient_descent(x, y, theta, alpha)
+    print("theta0=", theta_list[-1][0])
+    print("theta1=", theta_list[-1][1])
+
+
+
 
 
 
