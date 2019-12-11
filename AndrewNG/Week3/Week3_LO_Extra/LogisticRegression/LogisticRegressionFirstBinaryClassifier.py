@@ -81,9 +81,7 @@ def plot_reg(X, y, theta):
     plt.ylabel('Physics')
     plt.legend()
     plt.savefig("LogisticRegressionFirstBinaryClassifier-DecisionBoundry.png")
-    plt.cla()  # Clear axis
-    plt.clf()  # Clear figure
-    plt.close()  # Close a figure window
+    return plt
 
 
 filename = "sample1.csv"
@@ -96,13 +94,15 @@ X = np.c_[np.ones(X.shape[0]), X]
 theta = np.ones((X.shape[1], 1))
 temp = cost_function(X, y, theta)
 print(temp)
-# theta, num_of_iter, cost_list = grad_desc(X, y, theta)
-# draw_cost_function(cost_list)
-# print("final theta_0 =", theta[0])
-# print("final theta_1 =", theta[1])
-# print("final theta_2 =", theta[2])
-# print("Total Number of iterations = ", num_of_iter)
-# plot_reg(X, y, theta)
+theta, num_of_iter, cost_list = grad_desc(X, y, theta)
+draw_cost_function(cost_list)
+print("final theta_0 =", theta[0])
+print("final theta_1 =", theta[1])
+print("final theta_2 =", theta[2])
+print("Total Number of iterations = ", num_of_iter)
+plt = plot_reg(X, y, theta)
+plt.show()
+
 
 
 

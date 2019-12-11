@@ -6,8 +6,12 @@ def g(z):
     return 1/(1 + np.exp(-z))
 
 
+def generate_data():
+    return np.linspace(-10, 10, 100)
+
+
 def test_g():
-    z = np.linspace(-10, 10, 100)
+    z = generate_data()
     plt.plot(z, g(z))
     plt.grid(True)
     plt.xlabel("z")
@@ -16,13 +20,11 @@ def test_g():
     plt.annotate('Concave', (3, 0.8), fontsize=18)
     plt.title("Sigmoid Function g(z) = 1/(1 + exp(-z))", fontsize=12, color="blue")
     plt.show()
-    plt.cla()  # Clear axis
-    plt.clf()  # Clear figure
-    plt.close()  # Close a figure window
+    return plt
 
 
 def plot_cost_function():
-    x = np.linspace(-10, 10, 100)
+    x = generate_data()
     plt.plot(g(x), -np.log(g(x)))
     plt.plot(g(x), -np.log(1-g(x)))
     plt.xlabel("g(x)", fontsize=12, color="blue")
@@ -31,11 +33,14 @@ def plot_cost_function():
     plt.annotate("- np.log(1 - g(x))", (.8, 10), fontsize=12, color="blue")
     plt.grid(True)
     plt.show()
+    return plt
 
 
 if __name__ == "__main__":
-    test_g()
-    plot_cost_function()
+    # plt = test_g()
+    # plt.show()
+    plt = plot_cost_function()
+    plt.show()
 
 
 
