@@ -173,7 +173,7 @@ if __name__ == "__main__":
     plt = plot_pass_fail(df_x_pass, df_x_fail)
     x, y, theta = fit_x(df_x, df_y)
     initial_cost = cost_function(theta, x, y)
-    print("temp_cost using cost_function =", initial_cost)
+    print("initial_cost using cost_function =", initial_cost)
     #only_for_troubleshooting(x, theta, df_y,cost_function,first_deri_j)
     theta_optimized = get_best_theta_using_scipy_lib(cost_function, theta, first_deri_j, x , y)
     theta_optimized = theta_optimized[0]
