@@ -66,7 +66,7 @@ def sigmoid(Z):
 def cost_function(theta, x, y):
     m = x.shape[0]
     h = sigmoid(z(x, theta))
-    j = (1/m) * np.sum(-y * np.log(h) - (1 - y) * np.log(1 - h))
+    j = (1/m) * np.sum(-y * np.log(h) - (1 - y) * np.log(1 - h), axis=0)
     j = j[:, np.newaxis]
     return j
 
@@ -103,23 +103,17 @@ def cost_function1(theta, x, y):
 def first_deri_j(theta, x, y):
     m = x.shape[0]
     h = sigmoid(z(x, theta))
-    calculation = (1/-m) * (np.dot((h - y).T, x))
+    calculation = (1/m) * (np.dot((h - y).T, x))
     return calculation.T
 
 
+def first_deri_j1(theta , x , y):
+    m = x.shape[0]
+    h = sigmoid(z(x, theta))
+    y = y.to_numpy()
+    calculation = 1/m * np.sum((h-y)*x, axis=0)
+    return calculation
 
-"""
-
-this is incorrect implementation as this gives a scaler output where as about output gives matrix 
-1, 3 which we transposed to 3,1 and returned .
-
-# def first_deri_j(theta , x , y):
-#     m = x.shape[0]
-#     h = sigmoid(z(x, theta))
-#     y = y.to_numpy()
-#     calculation = 1/m * (np.sum(((h-y)*x)))
-#     print(calculation)
-"""
 
 def only_for_troubleshooting(x, theta, y):
     pass
@@ -136,8 +130,10 @@ def only_for_troubleshooting(x, theta, y):
     # print("temp_cost1 using cost_function1 =", temp_cost1)
     # print("we did not print temp_cost1.shape as it is scaler number not vector")
     # print("Did you notice that both implementations of cost function produce same result")
-    # derivative = first_deri_j(theta, x, y)
-    # print(derivative)
+    derivative = first_deri_j(theta, x, y)
+    print(derivative)
+    derivative1 = first_deri_j1(theta, x, y)
+    print(derivative1)
 
 
 if __name__ == "__main__":
