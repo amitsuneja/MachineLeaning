@@ -67,11 +67,33 @@ def cost_function(theta, x, y):
     m = x.shape[0]
     h = sigmoid(z(x, theta))
     j = (1/m) * np.sum(-y * np.log(h) - (1 - y) * np.log(1 - h))
-    j = j[:, np.newaxis]  # if we don't need this step we will check it later.
+    j = j[:, np.newaxis]
     return j
 
 
 def cost_function1(theta, x, y):
+    """
+    You can see we have implemented cost function twice.
+    cost_function and cost_function1: Basically both do same job but way of implementation is different.
+    cost_function - uses np.sum on outside and np.multiply to matrix
+    cost_function1 - uses as np.dot to multiply to matrix and np.sum is not required.
+    I hope you know why ?
+    Here is output of both function when i initialized by theta and calculated cost :
+    temp_cost using cost_function = [[0.69314718]]
+    temp_cost1 using cost_function1 = [[0.69314718]]
+
+    Tip1 : remember cost function should always return single value or matrix of 1x1
+    if you are getting more then one values then you have problem.
+
+    np.dot(np.log(h), -y.T) - np.dot(np.log(1 - h), (1 - y).T) this is incorrect implementation.
+    or
+    np.dot(-y , np.log(h).T) - np.dot((1 - y), np.log(1 - h).T) this is incorrect implementation/
+
+
+    Tip2: Derivative of your cost function will always return matrix.
+    If you have 3 thetas , then it will return matrix of 3X1 or 1X3 depending on shape of data.
+
+    """
     m = x.shape[0]
     h = sigmoid(z(x, theta))
     j = (1/m) * (np.dot(np.log(h).T, -y) - np.dot(np.log(1 - h).T, (1 - y)))
@@ -83,9 +105,6 @@ def first_deri_j(theta, x, y):
     h = sigmoid(z(x, theta))
     calculation = (1/-m) * (np.dot((h - y).T, x))
     return calculation.T
-
-
-
 
 
 
@@ -110,14 +129,13 @@ def only_for_troubleshooting(x, theta, y):
     # hypothesis = sigmoid(Z)
     # print(hypothesis.shape)
     # print(hypothesis)
-    print(sigmoid(0))    # should display .5 then your sigmoid is perfect
-    temp_cost = cost_function(theta, x, y)
-    print("temp_cost using cost_function =", temp_cost)
-    temp_cost1 = cost_function1(theta, x, y)
-    print("temp_cost1 using cost_function1 =", temp_cost1)
-    print("we did not print temp_cost1.shape as it is scaler number not vector")
-    print("Did you notice that both implementations of cost function produce same result")
-
+    # print(sigmoid(0))    # should display .5 then your sigmoid is perfect
+    # temp_cost = cost_function(theta, x, y)
+    # print("temp_cost using cost_function =", temp_cost)
+    # temp_cost1 = cost_function1(theta, x, y)
+    # print("temp_cost1 using cost_function1 =", temp_cost1)
+    # print("we did not print temp_cost1.shape as it is scaler number not vector")
+    # print("Did you notice that both implementations of cost function produce same result")
     # derivative = first_deri_j(theta, x, y)
     # print(derivative)
 
