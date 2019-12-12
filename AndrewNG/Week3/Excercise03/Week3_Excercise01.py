@@ -66,34 +66,25 @@ def sigmoid(Z):
 def cost_function(theta, x, y):
     m = x.shape[0]
     h = sigmoid(z(x, theta))
-    j = (1/-m) * np.sum(-y * np.log(h) - (1 - y) * (1 - np.log(h)))
-    """
-    when we checked the above statement return j of size (1,) and its pandas series , lets convert it 
-    into np.array of shape (1,1) using newaxis.
-    """
+    j = (1/m) * np.sum(-y * np.log(h) - (1 - y) * np.log(1 - h))
     j = j[:, np.newaxis]  # if we don't need this step we will check it later.
     return j
 
-
 def cost_function1(theta, x, y):
-    """
-    this is same as cost_function , only implemetation is littel different.
-    cost_function uses np.multiply where as cost_function1 uses np.dot
-    """
     m = x.shape[0]
     h = sigmoid(z(x, theta))
-    j = (1/-m) * np.sum(np.dot(-y, np.log(h).T) - np.dot((1 - y), (1 - np.log(h).T)))
+    j = (1/m) * (np.dot(np.log(h).T, -y) - np.dot(np.log(1 - h).T, (1 - y)))
     return j
 
 
 def first_deri_j(theta, x, y):
     m = x.shape[0]
     h = sigmoid(z(x, theta))
-    calculation = np.dot((h - y).T, x)
+    calculation = (1/-m) * (np.dot((h - y).T, x))
     return calculation.T
 
 
-def batch_gradient_descent():
+
 
 
 
@@ -118,14 +109,14 @@ def only_for_troubleshooting(x, theta, y):
     # hypothesis = sigmoid(Z)
     # print(hypothesis.shape)
     # print(hypothesis)
-    # print(sigmoid(0))    # should display .5 then your sigmoid is perfect
-    # temp_cost = cost_function(theta, x, y)
-    # print("temp_cost using cost_function =", temp_cost)
-    # print("temp_cost.shape =", temp_cost.shape)
-    # temp_cost1 = cost_function1(theta, x, y)
-    # print("temp_cost1 using cost_function1 =", temp_cost1)
-    # print("we did not print temp_cost1.shape as it is scaler number not vector")
-    # print("Did you notice that both implementations of cost function produce same result")
+    print(sigmoid(0))    # should display .5 then your sigmoid is perfect
+    temp_cost = cost_function(theta, x, y)
+    print("temp_cost using cost_function =", temp_cost)
+    temp_cost1 = cost_function1(theta, x, y)
+    print("temp_cost1 using cost_function1 =", temp_cost1)
+    print("we did not print temp_cost1.shape as it is scaler number not vector")
+    print("Did you notice that both implementations of cost function produce same result")
+
     # derivative = first_deri_j(theta, x, y)
     # print(derivative)
 
