@@ -21,7 +21,7 @@ import pandas as pd
 
 def reading_data_file(csv_filename):
     df = pd.read_csv(csv_filename, header=None)
-    df.columns = [["population", "profit"]]
+    df.columns = ["population", "profit"]
     return df
 
 
@@ -38,6 +38,7 @@ def plot_data(df):
 def fit_data(df):
     x = df["population"]
     y = df["profit"]
+    y = y[np.newaxis, :]
     x = np.c_[np.ones(x.shape[0]), x]  # remember this will always return numpy array
     theta = np.zeros((x.shape[1], 1))  #np.zeros((2, 1))
     alpha = 0.01
@@ -51,7 +52,9 @@ def h(x, theta):                      # this is probability/hypotheses
 def j(x, y, theta):                    # this is cost function
     m = x.shape[0]
     hypothesis = h(x, theta)
-    error = hypothesis - y
+    print(hypothesis.shape)
+    print(y.shape)
+    error = hypothesis - y.T
     return 1 / (2 * m) * (np.dot(error.T, error))    # (1/2m)*sum[(error)^2]
 
 
@@ -124,6 +127,7 @@ def optional_for_troubleshooting(x, y, theta,alpha):
     print("Initial cost= ", cost)
     print("cost.shape=", cost.shape)
     deri = first_der_j(x, y, theta, alpha)
+    print("deri =", deri )
     print("deri.shape=", deri.shape)
 
 
@@ -131,15 +135,15 @@ if __name__ == "__main__":
     df = reading_data_file("ex1data1.txt")
     plt = plot_data(df)
     x, y, theta, alpha = fit_data(df)
-    #optional_for_troubleshooting(x, y, theta,alpha)
-    j_list, theta_list, hypothesis, i, deri_theta_list = batch_gradient_descent(x, y, theta, alpha)
-    plt = plot_cost_function(j_list, i)
-    final_theta = np.ones((2, 1))
-    final_theta[0][0] = theta_list[-1][0][0]
-    final_theta[1][0] = theta_list[-1][1][0]
-    print("final_theta_values =", final_theta)
-    print("final_cost_value = ", j_list[-1][0][0])
-    plt = plot_regression_line(df , x  , final_theta)
+    optional_for_troubleshooting(x, y, theta,alpha)
+    # j_list, theta_list, hypothesis, i, deri_theta_list = batch_gradient_descent(x, y, theta, alpha)
+    # plt = plot_cost_function(j_list, i)
+    # final_theta = np.ones((2, 1))
+    # final_theta[0][0] = theta_list[-1][0][0]
+    # final_theta[1][0] = theta_list[-1][1][0]
+    # print("final_theta_values =", final_theta)
+    # print("final_cost_value = ", j_list[-1][0][0])
+    # plt = plot_regression_line(df , x  , final_theta)
 
 
 
