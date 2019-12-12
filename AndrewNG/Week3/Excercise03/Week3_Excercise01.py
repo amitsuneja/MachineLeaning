@@ -126,7 +126,7 @@ def get_best_theta_using_scipy_lib(cost_func_name, theta, first_deri_of_cost_fun
     return temp
 
 
-def grad_desc(x, y, theta, lr=.01, converge_change=0.001):
+def grad_desc(x, y, theta, lr=.0001, converge_change=0.001):
     cost_list = list()
     cost_list.append(1e10)
     i = 0
@@ -166,19 +166,24 @@ def only_for_troubleshooting(x, theta, y, cost_function, first_deri_j):
     # print(derivative1)
 
 
-
 if __name__ == "__main__":
     df = read_data_file("ex2data1.txt")
     df_x, df_y = segregate_x_y(df)
     df_x_pass, df_x_fail = segregate_x_into_pass_fail(df_x, df_y)
     plt = plot_pass_fail(df_x_pass, df_x_fail)
     x, y, theta = fit_x(df_x, df_y)
+    initial_cost = cost_function(theta, x, y)
+    print("temp_cost using cost_function =", initial_cost)
     #only_for_troubleshooting(x, theta, df_y,cost_function,first_deri_j)
     theta_optimized = get_best_theta_using_scipy_lib(cost_function, theta, first_deri_j, x , y)
     theta_optimized = theta_optimized[0]
     print("Auto theta optimized =", theta_optimized)
     theta, i, cost_list = grad_desc(x, y, theta)
-    print("Manual theta optimized =",theta)
+    print("Manual theta optimized in {} iterations is = {} ".format(i, theta))
+    final_cost_with_theta_optimized = cost_function(theta_optimized[:, np.newaxis], x, y)
+    print("final_cost_with_theta_optimized=", final_cost_with_theta_optimized)
+    final_cost_with_manual_theta = cost_function(theta, x, y)
+    print("final_cost_with_manual_theta=", final_cost_with_manual_theta)
 
 
 
