@@ -18,7 +18,7 @@ Note : this code uses df.to_numpy which introduced in pandas 0.25.3 so make sure
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle
+import scipy.optimize as opt
 
 
 def read_data_file(filemame):
@@ -49,10 +49,11 @@ def plot_pass_fail(df_x_pass, df_x_fail):
     return plt
 
 
-def fit_x(df_x):
+def fit_x(df_x, df_y):
     x = np.c_[np.ones(df_x.shape[0]), df_x]
     theta = np.zeros((x.shape[1], 1))
-    return x, theta
+    y = df_y.to_numpy()
+    return x, y, theta
 
 
 def z(x, theta):
@@ -67,7 +68,6 @@ def cost_function(theta, x, y):
     m = x.shape[0]
     h = sigmoid(z(x, theta))
     j = (1/m) * np.sum(-y * np.log(h) - (1 - y) * np.log(1 - h), axis=0)
-    j = j[:, np.newaxis]
     return j
 
 
@@ -110,30 +110,61 @@ def first_deri_j(theta, x, y):
 def first_deri_j1(theta , x , y):
     m = x.shape[0]
     h = sigmoid(z(x, theta))
-    y = y.to_numpy()
     calculation = 1/m * np.sum((h-y)*x, axis=0)
     return calculation
 
+def get_best_theta_using_scipy_lib(cost_func_name, theta, first_deri_of_cost_func, x , y):
+    """
+    Note on flatten() function: Unfortunately scipy’s fmin_tnc doesn’t work well with column or row vector.
+    It expects the parameters to be in an array format. The flatten() function reduces a column or row vector
+    into array format.
+    """
+    temp = opt.fmin_tnc(func=cost_func_name,
+                        x0=theta.flatten(),
+                        fprime=first_deri_of_cost_func,
+                        args=(x, y.flatten()))
+    return temp
 
-def only_for_troubleshooting(x, theta, y):
+
+def grad_desc(x, y, theta, lr=.01, converge_change=0.001):
+    cost_list = list()
+    cost_list.append(1e10)
+    i = 0
+    run = True
+    while run:
+        theta = theta - lr * first_deri_j(theta, x, y)
+        cost = cost_function(theta, x, y)
+        cost_list.append(cost)
+        # print("Value of i = {} and i+1 ={}".format(i, i+1))
+        # print("cost[{}] = {} and cost[{}] = {}".format(i, cost_list[i], i+1, cost_list[i+1]))
+        # print("cost_list[{}] - cost_list[{}] = {} ".format(i, i+1, cost_list[i] - cost_list[i + 1] ))
+        if cost_list[i] - cost_list[i + 1] < converge_change:
+            run = False
+        i += 1
+    cost_list.pop(0)
+    return theta, i, cost_list
+
+
+def only_for_troubleshooting(x, theta, y, cost_function, first_deri_j):
     pass
-    # Z = z(x, theta)
+    Z = z(x, theta)
     # print("Z =", Z)
     # print("Z.shape=", Z.shape)
-    # hypothesis = sigmoid(Z)
+    hypothesis = sigmoid(Z)
     # print(hypothesis.shape)
-    # print(hypothesis)
-    # print(sigmoid(0))    # should display .5 then your sigmoid is perfect
-    # temp_cost = cost_function(theta, x, y)
-    # print("temp_cost using cost_function =", temp_cost)
+    print(hypothesis)
+    print(sigmoid(0))    # should display .5 then your sigmoid is perfect
+    temp_cost = cost_function(theta, x, y)
+    print("temp_cost using cost_function =", temp_cost)
     # temp_cost1 = cost_function1(theta, x, y)
     # print("temp_cost1 using cost_function1 =", temp_cost1)
     # print("we did not print temp_cost1.shape as it is scaler number not vector")
     # print("Did you notice that both implementations of cost function produce same result")
     derivative = first_deri_j(theta, x, y)
     print(derivative)
-    derivative1 = first_deri_j1(theta, x, y)
-    print(derivative1)
+    # derivative1 = first_deri_j1(theta, x, y)
+    # print(derivative1)
+
 
 
 if __name__ == "__main__":
@@ -141,8 +172,15 @@ if __name__ == "__main__":
     df_x, df_y = segregate_x_y(df)
     df_x_pass, df_x_fail = segregate_x_into_pass_fail(df_x, df_y)
     plt = plot_pass_fail(df_x_pass, df_x_fail)
-    x, theta = fit_x(df_x)
-    only_for_troubleshooting(x, theta, df_y)
+    x, y, theta = fit_x(df_x, df_y)
+    #only_for_troubleshooting(x, theta, df_y,cost_function,first_deri_j)
+    theta_optimized = get_best_theta_using_scipy_lib(cost_function, theta, first_deri_j, x , y)
+    theta_optimized = theta_optimized[0]
+    print("Auto theta optimized =", theta_optimized)
+    theta, i, cost_list = grad_desc(x, y, theta)
+    print("Manual theta optimized =",theta)
+
+
 
 
 
