@@ -70,6 +70,7 @@ def cost_function(theta, x, y):
     j = j[:, np.newaxis]  # if we don't need this step we will check it later.
     return j
 
+
 def cost_function1(theta, x, y):
     m = x.shape[0]
     h = sigmoid(z(x, theta))
