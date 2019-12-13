@@ -43,16 +43,17 @@ def grad_desc(X, y, theta, lr=.01, converge_change=0.001):
     i = 0
     run = True
     while run:
-        theta = theta - lr * (derivative_of_cost_function(X, y, theta))
+        theta = theta - lr * derivative_of_cost_function(X, y, theta)
         cost = cost_function(X, y, theta)
         cost_list.append(cost)
-        # print("Value of i = {} and i+1 ={}".format(i, i+1))
-        # print("cost[{}] = {} and cost[{}] = {}".format(i, cost_list[i], i+1, cost_list[i+1]))
-        # print("cost_list[{}] - cost_list[{}] = {} ".format(i, i+1, cost_list[i] - cost_list[i + 1] ))
+        print("Value of i = {} and i+1 ={}".format(i, i+1))
+        print("cost[{}] = {} and cost[{}] = {}".format(i, cost_list[i], i+1, cost_list[i+1]))
+        print("cost_list[{}] - cost_list[{}] = {} ".format(i, i+1, cost_list[i] - cost_list[i + 1] ))
         if cost_list[i] - cost_list[i + 1] < converge_change:
             run = False
         i += 1
     return theta, i, cost_list
+
 
 
 def draw_cost_function(cost_list):
@@ -84,7 +85,8 @@ def plot_reg(X, y, theta):
     return plt
 
 
-filename = "sample1.csv"
+filename = "../../Excercise03/ex2data1.txt"
+#filename = "sample1.csv"
 df = pd.read_csv(filename, header=None)
 df = normalize(df)
 df.columns = ["Maths", "Physics", "AdmissionStatus"]
@@ -102,6 +104,8 @@ print("final theta_2 =", theta[2])
 print("Total Number of iterations = ", num_of_iter)
 plt = plot_reg(X, y, theta)
 plt.show()
+print("final_cost =", cost_function(X, y, theta))
+
 
 
 

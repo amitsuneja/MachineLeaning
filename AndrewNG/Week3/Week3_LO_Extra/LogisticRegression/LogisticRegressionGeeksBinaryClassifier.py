@@ -2,7 +2,9 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 
-filename = "sample1.csv"
+filename = "../../Excercise03/ex2data1.txt"
+#filename = "sample1.csv"
+
 def loadCSV(filename):
     '''
     function to load dataset
@@ -119,3 +121,7 @@ if __name__ == "__main__":
 
     # plotting regression line
     plot_reg(X, y, theta)
+
+    # printing final cost
+    final_cost = cost_func(theta, X, y)
+    print("FINAL COST GEEKS =",final_cost )
