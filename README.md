@@ -14,3 +14,6 @@ http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLear
  |
  |
  axis = 0
+ 
+ you can download single file from GIT
+ wget --no-check-certificate RAW_PATH_TO_GIT_FILE
