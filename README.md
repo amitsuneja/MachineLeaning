@@ -17,3 +17,8 @@ http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLear
  
  you can download single file from GIT
  wget --no-check-certificate RAW_PATH_TO_GIT_FILE
+
+
+$ git branch -vv
+* master 2b600938 [origin/master] Merge branch 'master' of https://github.com/amitsuneja/MachineLeaning
+
