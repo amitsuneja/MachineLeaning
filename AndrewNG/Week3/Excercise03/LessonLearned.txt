@@ -1,0 +1,4 @@
+1. while applying gradient descent always user number of inerations to iterate over number of loops, never rely
+on convergence rate.
+2. it is very important to scale the data.
+3. this was binary classifier , so features (X) need to be scaled , But not the Y variable as Y is always 0 or 1.
