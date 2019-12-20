@@ -67,8 +67,9 @@ plt.ylabel("test2")
 x = df[df.columns[:-1]].values
 poly = PolynomialFeatures(6)
 x = (poly.fit_transform(x))
-y = df.iloc[:,2]
 """this has converted (118,2) into (118, 28) . So from 2 col/dimension  to 28 col/dimension"""
+
+y = df.iloc[:, 2]
 print(x.shape)
 # Set the regularization factor to 1
 reg_factor_Lambda = 1
