@@ -91,4 +91,4 @@ print(theta)  # theta contains the optimized values
 # Accuracy of model
 pred = sigmoid(z(x, theta)) >= 0.5
 accuracy = np.mean(pred == y.flatten()) * 100
-print("accuracy = {}%".format(accuracy))
+print("accuracy = {:.2f}%".format(accuracy))
