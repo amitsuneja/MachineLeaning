@@ -22,3 +22,6 @@ http://openclassroom.stanford.edu/MainFolder/DocumentPage.php?course=MachineLear
 $ git branch -vv
 * master 2b600938 [origin/master] Merge branch 'master' of https://github.com/amitsuneja/MachineLeaning
 
+
+Unsigned numbers can only have values of zero or greater. In contrast, signed numbers are more natural with a range 
+that includes negative to positive numbers.
