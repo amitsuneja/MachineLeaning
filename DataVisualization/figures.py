@@ -57,7 +57,7 @@ How to draw 2 scatterplots in different panels
 
 # Create Figure and Subplots
 fig, (Maths_ax, Physics_ax) = plt.subplots(1, 2, figsize=(10, 4), sharey=False, dpi=120)
-# Setting sharey=True in plt.subplots() shares the Y axis between the two subplots, Our y asis for both plots is
+# Setting sharey=True in plt.subplots() shares the Y axis between the two subplots, Our y axis for both plots is
 # different so we set it to False
 # nd dpi=120 increased the number of dots per inch of the plot to make it look more sharp and clear.
 # You will notice a distinct improvement in clarity on increasing the dpi
