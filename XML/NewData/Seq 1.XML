@@ -1,0 +1,23 @@
+<MLW Cmd="6" TStamp="2019-12-27T14:03:23" Id="801_br" OrgId="832677525" DevId="359764083169522" RouteId="Resource-42809085-1" TruckId="801_BOOM386" TrailerId="801_SEMIPUP385" StopId="008003" LocationKey="008003" DriverName="Brandon Rollins" LTStamp="2019-12-27T08:03:23" RouteName="801_BR_BOOM386" GroupName="LLC_UAT" GroupId="4414" SType="4" CustNo="008003" Name="008003 H&amp;H Lumber *** TRAINING ***" LocationAddress="1914 N 13TH ST" LocationCity="SUPERIOR" LocationState="WI" LocationPostalCode="54880-1406">
+  <GPS Altitude="198" Latitude="40.0114867" Longitude="-77.5100851" NoOfSat="7" Speed="0" SatTStamp="2019-12-27T14:03:19" Direction="0" FixQuality="A"/>
+  <Job Id="10000-0913" JobId="10000-0913" JType="66" Status="2" Name="10000-0913" DispatchStopId="11217410">
+    <Item ItemId="1" Status="1" Key="" Name="S2610458PWWSTD" LoadedOnCart="False">
+      <Extension Name="QTY" Value="1"/>
+    </Item>
+  </Job>
+  <Job Id="10000-0877" JobId="10000-0877" JType="66" Status="2" Name="10000-0877" DispatchStopId="11217319">
+    <Item ItemId="1" Status="1" Key="" Name="WEIGHT" LoadedOnCart="False">
+      <Extension Name="QTY" Value="1"/>
+    </Item>
+    <Item ItemId="2" Status="1" Key="" Name="SPLITORDER" LoadedOnCart="False">
+      <Extension Name="QTY" Value="1"/>
+    </Item>
+  </Job>
+  <Job Id="10000-0869" JobId="10000-0869" JType="67" Status="2" Name="10000-0869" DispatchStopId="11217301">
+    <Item ItemId="1" Status="1" Key="" Name="WEIGHT" LoadedOnCart="False">
+      <Extension Name="QTY" Value="1"/>
+    </Item>
+  </Job>
+  <Extension Name="AUXLOCATIONCOMMENTS" Value="TEST SERVICE TIME"/>
+  <Extension Name="CUSTOMERPHONE" Value="320-230-9140"/>
+</MLW>

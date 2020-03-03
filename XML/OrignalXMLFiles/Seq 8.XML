@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MLW Cmd="8" TStamp="2019-12-27T14:04:18" Id="801_br" OrgId="832677525" DevId="359764083169522" RouteId="Resource-42809085-1" TruckId="801_BOOM386" TrailerId="801_SEMIPUP385" StopId="LCECSCCD---" LocationKey="LCECSCCD---" StopType="67" DriverName="Brandon Rollins" LTStamp="2019-12-27T08:04:18" RouteName="801_BR_BOOM386" GroupName="LLC_UAT" GroupId="4414" SType="67" CustNo="LCECSCCD---" Name="Cash Sale Chan City Desk" LocationAddress="12 SPRING MEADOW CT" LocationCity="APPLETON" LocationState="WI" LocationPostalCode="54914-8521">
+  <FieldData LCode="1" OwnerId="LCECSCCD---">
+    <Field FId="34561" Name="Signature Required?" Value="Signature">
+      <Child FId="10859" PId="34561" Name="Received by" Value="Toilet bowl champ" />
+    </Field>
+  </FieldData>
+  <GPS Altitude="200" Latitude="40.0115011" Longitude="-77.5099925" NoOfSat="7" Speed="0" SatTStamp="2019-12-27T14:05:06" Direction="0" FixQuality="A" />
+  <Job Id="CO_202985_64915_008003_B" JobId="CO_202985_64915_008003_B" JType="67" Status="4" Name="CO_202985_64915_008003_B" DispatchStopId="11217411">
+    <Item ItemId="1" Status="4" Key="" Name="S2610458PWWSTD" Mode="Manual" LoadedOnCart="False">
+      <Extension Name="QTY" Value="1" />
+    </Item>
+  </Job>
+  <Job Id="CO_202980_64914_008001_B" JobId="CO_202980_64914_008001_B" JType="67" Status="4" Name="CO_202980_64914_008001_B" DispatchStopId="11217409">
+    <Item ItemId="1" Status="4" Key="" Name="OSB716" Mode="Manual" LoadedOnCart="False">
+      <Extension Name="QTY" Value="1" />
+    </Item>
+  </Job>
+  <Measures LCode="3">
+    <Measure mId="10874" OwnerId="1" ParentId="CO_202985_64915_008003_B" Value="1498.5" Planned="1498.5" Name="Measure1" Label="lbs" />
+  </Measures>
+  <Measures LCode="3">
+    <Measure mId="10874" OwnerId="1" ParentId="CO_202980_64914_008001_B" Value="1300" Planned="1300" Name="Measure1" Label="lbs" />
+  </Measures>
+  <Extension Name="AUXLOCATIONCOMMENTS" Value="TEST SERVICE TIME" />
+</MLW>

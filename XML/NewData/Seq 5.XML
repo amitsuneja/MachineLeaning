@@ -1,0 +1,19 @@
+<MLW Cmd="7" TStamp="2019-12-27T14:03:51" Id="801_br" OrgId="832677525" DevId="359764083169522" RouteId="Resource-42809085-1" TruckId="801_BOOM386" TrailerId="801_SEMIPUP385" StopId="LCECSCCD---" LocationKey="LCECSCCD---" DriverName="Brandon Rollins" LTStamp="2019-12-27T08:03:51" RouteName="801_BR_BOOM386" GroupName="LLC_UAT" GroupId="4414" SType="67" CustNo="LCECSCCD---" Name="Cash Sale Chan City Desk" LocationAddress="12 SPRING MEADOW CT" LocationCity="APPLETON" LocationState="WI" LocationPostalCode="54914-8521">
+  <FieldData LCode="1" OwnerId="LCECSCCD---">
+    <Field FId="10885" Name="Is waiver required?" Value="True">
+      <Child FId="10883" PId="10885" Name="Accepted By" Value="Dog"/>
+    </Field>
+  </FieldData>
+  <GPS Altitude="200" Latitude="40.0114998" Longitude="-77.5099911" NoOfSat="7" Speed="0" SatTStamp="2019-12-27T14:04:15" Direction="0" FixQuality="A"/>
+  <Job Id="10000-0913" JobId="10000-0913" JType="67" Status="3" Name="10000-0913" DispatchStopId="11217411">
+    <Item ItemId="1" Status="1" Key="" Name="S2610458PWWSTD" LoadedOnCart="False">
+      <Extension Name="QTY" Value="1"/>
+    </Item>
+  </Job>
+  <Job Id="10000-0912" JobId="10000-0912" JType="67" Status="3" Name="10000-0912" DispatchStopId="11217409">
+    <Item ItemId="1" Status="1" Key="" Name="OSB716" LoadedOnCart="False">
+      <Extension Name="QTY" Value="1"/>
+    </Item>
+  </Job>
+  <Extension Name="AUXLOCATIONCOMMENTS" Value="TEST SERVICE TIME"/>
+</MLW>
